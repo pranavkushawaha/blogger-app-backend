@@ -155,7 +155,17 @@ Post.search = function(searchTerm) {
   return new Promise(async (resolve, reject) => {
     if (typeof(searchTerm) == "string") {
       let posts = await Post.reusablePostQuery([
-        {$match: {$text: {$search: searchTerm}}},
+        {
+          '$search': {
+            'index': 'default',
+            'text': {
+              'query': searchTerm,
+              'path': {
+                'wildcard': '*'
+              }
+            }
+          }
+        },
         {$sort: {score: {$meta: "textScore"}}}
       ])
       resolve(posts)

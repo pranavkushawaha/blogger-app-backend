@@ -9,8 +9,8 @@ async function main() {
   const client = await mongodb.connect();
   module.exports = client;
   const app = require("./app")
-  // app.listen(process.env.PORT,process.env.HOST)
-  app.listen(8000)
+  app.listen(process.env.PORT,process.env.HOST)
+  // app.listen(8000)
 }
 
 main()

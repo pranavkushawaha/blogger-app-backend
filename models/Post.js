@@ -1,6 +1,6 @@
 const postsCollection = require('../db').db().collection("posts")
 const followsCollection = require('../db').db().collection("follows")
-const ObjectID = require('mongodb').ObjectID
+const ObjectID = require('mongodb').ObjectId
 const User = require('./User')
 const sanitizeHTML = require('sanitize-html')
 
@@ -36,9 +36,9 @@ Post.prototype.create = function() {
     if (!this.errors.length) {
       // save post into database
       postsCollection.insertOne(this.data).then((info) => {
-        resolve(info.ops[0]._id)
+        resolve(info.insertedId)
       }).catch(e => {
-        this.errors.push("Please try again later.")
+        this.errors.push("Error in inserting post in db.")
         reject(this.errors)
       })
     } else {
@@ -154,7 +154,8 @@ Post.delete = function(postIdToDelete, currentUserId) {
 Post.search = function(searchTerm) {
   return new Promise(async (resolve, reject) => {
     if (typeof(searchTerm) == "string") {
-      let posts = await Post.reusablePostQuery([
+      let posts = await Post.reusablePostQuery(
+        [
         {
           '$search': {
             'index': 'default',

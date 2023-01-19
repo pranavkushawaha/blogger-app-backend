@@ -1,6 +1,6 @@
 const usersCollection = require('../db').db().collection("users")
 const followsCollection = require('../db').db().collection("follows")
-const ObjectID = require('mongodb').ObjectID
+const ObjectID = require('mongodb').ObjectId
 const User = require('./User')
 
 let Follow = function(followedUsername, authorId) {

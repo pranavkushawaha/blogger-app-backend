@@ -20,6 +20,8 @@ exports.apiGetPostsByUsername = async function (req, res) {
 exports.checkToken = function (req, res) {
   try {
     req.apiUser = jwt.verify(req.body.token, process.env.JWTSECRET)
+    // console.log("checkToken ");
+    // console.log(req.apiUser)
     res.json(true)
   } catch (e) {
     res.json(false)
@@ -29,6 +31,8 @@ exports.checkToken = function (req, res) {
 exports.apiMustBeLoggedIn = function (req, res, next) {
   try {
     req.apiUser = jwt.verify(req.body.token, process.env.JWTSECRET)
+    // console.log("apiMustBeLoggedIn ");
+    // console.log(req.apiUser)
     next()
   } catch (e) {
     res.status(500).send("Sorry, you must provide a valid token.")
@@ -53,7 +57,9 @@ exports.doesEmailExist = async function (req, res) {
 exports.sharedProfileData = async function (req, res, next) {
   let viewerId
   try {
-    viewer = jwt.verify(req.body.token, process.env.JWTSECRET)
+    const viewer = jwt.verify(req.body.token, process.env.JWTSECRET)
+    // console.log("viewer ");
+    // console.log(viewer)
     viewerId = viewer._id
   } catch (e) {
     viewerId = 0

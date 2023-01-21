@@ -14,7 +14,7 @@ const { Server } = require("socket.io");
 const io = new Server(server, {
   pingTimeout: 30000,
   cors: {
-    origin: ["http://localhost:3000","https://blog-app-grp10.netlify.app/"]
+    origin: ["http://localhost:3000","https://blog-app-grp10.netlify.app"]
   }
 })
 

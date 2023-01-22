@@ -88,7 +88,7 @@ User.prototype.register = function() {
 }
 
 User.prototype.getAvatar = function() {
-  this.avatar = `https://gravatar.com/avatar/${md5(this.data.email)}?s=128`
+  this.avatar = `https://gravatar.com/avatar/${md5(this.data.email)}?s=128&d=mp`
 }
 
 User.findByUsername = function(username) {
